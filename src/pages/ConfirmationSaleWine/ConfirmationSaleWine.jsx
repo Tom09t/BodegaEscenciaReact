@@ -42,14 +42,15 @@ export const ConfirmationSaleWine = () => {
                 <div className="container-flex-right">
                     <h2>Subtotal <span className="text-red price">$18000</span></h2>
                     <h2>Descuento <span className="text-red price">-$8000</span></h2>
-                    <h2>Total <span className="text-red price">$10000</span></h2>
+                    <h2>Total <span className="text-green price">$10000</span></h2>
                 </div>
                 
             </div>
             <div className="container-buttons-right">
-                <FirstButton value={"Volver"}/>
-                <FirstButton value={"Modificar"}/>
-                <FirstButton value={"Aceptar"}/>
+                <FirstButton value={"Aceptar"} clase={"medium-button"}/>
+                <FirstButton value={"Volver"} clase={"medium-button"}/>
+                <FirstButton value={"Modificar"} clase={"medium-button-yellow"}/>
+                
             </div>
         </div>
         

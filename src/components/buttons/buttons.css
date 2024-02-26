@@ -24,13 +24,27 @@
     border: none;
     border-radius: 20px;
 }
-
+.medium-button-yellow{
+    height: 40px;
+    width: 160px;
+    font-size: 20px;
+    background-color: #FFA800;
+    color: #FFF;
+    border: none;
+    border-radius: 20px;
+}
 .medium-button:hover{
     background-color: #531b1e;
+}
+.medium-button-yellow:hover{
+    background-color: #c78603;
 }
 
 .medium-button:active{
     background-color: #3f1517;
+}
+.medium-button-yellow:active{
+    background-color: #916101;
 }
 
 .view-button{
