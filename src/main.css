@@ -1,0 +1,123 @@
+*{
+    font-family: "Lalezar", system-ui;
+}
+
+body{
+    background-color: #f4f4f4;
+    margin: 0px;
+    padding: 0px;
+}
+header{
+    background-color: #6B2227;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    
+    height: 80px;
+}
+
+/*TITULOS Y SUBTITULOS*/
+.title{
+    color: #6B2227;
+    font-size: 30px;    
+}
+.subtitle{
+    font-size: 25px;
+    color: #111;
+}
+.subtitle-small{
+    font-size: 20px;
+    color: #111;
+}
+
+
+/*AJUSTES EN TEXTOS*/
+
+.text-center{
+    text-align: center;
+}
+
+.text-green{
+    color: #2E983F;
+}
+.text-red{
+    color: #6B2227;
+}
+
+/*CONTENEDORES*/
+
+.container-page{
+    margin: 30px;
+}
+
+
+.flex-container{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-buttons-center{
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+.container-buttons-center button{
+    margin: 5px;
+}
+
+.container-buttons-right{
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 20px 20px 20px 30px;
+}
+.container-buttons-right button{
+    margin: 5px;
+}
+.container-buttons-left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.container-buttons-left button{
+    margin: 5px;
+}
+
+.container-gray{
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    padding: 10px;
+    margin: auto;
+}
+
+/*Tablas*/
+
+
+.table-generic{
+    border: 1px solid #111;
+    width: calc(100% - 40px); /* Resta 40px al ancho total para dar espacio a ambos lados */
+    margin: 0 auto; /* Centra la tabla horizontalmente */
+    border-collapse: collapse;
+}
+
+.table-generic th{
+    padding: 10px 20px 10px 20px;
+    margin: 0px;
+    text-align: center;
+}
+
+.table-generic td{
+    text-align: center;
+}
+
+.table-generic button{
+    margin: 5px;
+}
+
+.row-grey{
+    background-color: #D9D9D9;
+}

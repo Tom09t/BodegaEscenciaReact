@@ -1,0 +1,40 @@
+.select-restaurant{
+    width: 420px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+}
+.counter-item{
+    border: 1px solid black;
+    border-radius: 30px;
+    height: 40px;
+    width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+.counter-item button{
+    border: none;
+    background-color: transparent;
+    font-size: 25px;
+    margin: 10px;
+}
+.container-grid-saleRestaurant{
+    display: grid;
+    grid-template-columns: 3fr 2fr 1fr;
+}
+.grid-item-total{
+    grid-column: 3;
+    grid-row: 4;
+}
+.container-formaPago{
+    margin: 20px 20px 60px 20px;
+}
+.container-detalle{
+    margin: 20px;
+}
+.container-detalle h2{
+    margin-bottom: 0px;
+}

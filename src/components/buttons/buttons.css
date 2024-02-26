@@ -1,0 +1,115 @@
+.small-button{
+    height: 30px;
+    width: 100px;
+    background-color: #6B2227;
+    color: #FFF;
+    border: none;
+    border-radius: 20px;
+}
+
+.small-button:hover{
+    background-color: #531b1e;
+}
+
+.small-button:active{
+    background-color: #3f1517;
+}
+
+.medium-button{
+    height: 40px;
+    width: 160px;
+    font-size: 20px;
+    background-color: #6B2227;
+    color: #FFF;
+    border: none;
+    border-radius: 20px;
+}
+
+.medium-button:hover{
+    background-color: #531b1e;
+}
+
+.medium-button:active{
+    background-color: #3f1517;
+}
+
+.view-button{
+    height: 24px;
+    width: 36px;
+    font-size: 12px;
+    background-color: #00D1FF;
+    border: none;
+    border-radius: 16px;  
+}
+
+.view-button:hover{
+    background-color: #02bce6;
+      
+}
+.view-button:active{
+    background-color: #028faf; 
+}
+
+.add-button{
+    height: 24px;
+    width: 24px;
+    font-size: 12px;
+    background-color: #2E983F;
+    border: none;
+    margin: 5px;
+    border-radius: 16px;  
+}
+.add-button:hover{
+    background-color: #298538;
+}
+.add-button:active{
+    background-color: #216b2d;
+}
+.modify-button{
+    background-color: #FFA800;
+    font-size: 12px;
+    height: 24px;
+    width: 44px;
+    border: none;
+    border-radius: 16px;
+}
+.modify-button:hover{
+    background-color: #e09602 ;
+}
+.modify-button:active{
+    background-color: #ad7401 ;
+}
+.status-button-ok{
+    background-color: #2E983F;
+    border: none;
+    border-radius: 12px;
+    height: 24px;
+    width: 44px;
+    font-size: 12px;
+}
+.status-button-ok:hover{
+    background-color: #298538;
+    
+}
+.status-button-ok:active{
+    background-color: #216b2d;
+    
+}
+
+
+.status-button-bad{
+    background-color: #FF1717;
+    border: none;
+    border-radius: 12px;
+    height: 24px;
+    width: 44px;
+    font-size: 12px;
+}
+.status-button-bad:hover{
+    background-color: #b81414;
+    
+}
+.status-button-bad:active{
+    background-color: #921010;
+    
+}

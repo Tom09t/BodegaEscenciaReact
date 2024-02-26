@@ -1,0 +1,25 @@
+.grid-container-wine{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 10px;
+    
+
+}
+.grid-container-wine h2{
+    padding-left: 30px;
+    grid-column-start: 1;
+    grid-column-end:5 ;
+}
+.grid-container-wine h3{
+    text-align: center;
+    margin: 10px;
+}
+.flex-container-sale-wine{
+    display: flex;
+    justify-content: end;
+    margin: 20px;
+}
+.flex-container-sale-wine div{
+    margin-left: 20px;
+    text-align: center;
+}
