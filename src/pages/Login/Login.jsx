@@ -3,6 +3,7 @@ import Logo from "../../assets/Logo.png"
 import "./login.css"
  
 export const Login = () => {
+
   return (
     <>
     <div className="flex-container">
@@ -21,7 +22,7 @@ export const Login = () => {
             </form>
 
             <div className="container-buttons-right">
-                <FirstButton value={"Ingresar"} type={"submit"} clase={"small-button"}/>
+                <FirstButton value={"Ingresar"} type={"submit"} clase={"small-button"} ruta={"/HomeUser"}/>
             </div>
         </div>
     </div>

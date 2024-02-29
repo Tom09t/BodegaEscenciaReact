@@ -35,8 +35,8 @@ export const SaleWine = () => {
         </div>
           
         <div className="container-buttons-right">
-          <FirstButton value={"Aceptar"} clase={"medium-button"}/>     
-          <FirstButton value={"Volver"} clase={"medium-button"}/>
+          <FirstButton value={"Aceptar"} clase={"medium-button"} ruta={"/ConfirmationSaleWine"}/>     
+          <FirstButton value={"Volver"} clase={"medium-button"} ruta={"/UserWine"}/>
         </div>
           
       </div>

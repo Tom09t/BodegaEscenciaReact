@@ -15,8 +15,8 @@ export const HomeUser = () => {
                 <img src={Logo} alt="" />
             </div>
             <div className="container-buttons-center">
-                <FirstButton value={"Restaurante"} clase={"medium-button"}/>
-                <FirstButton value={"Wine"} clase={"medium-button"}/>
+                <FirstButton value={"Restaurante"} clase={"medium-button"} ruta={"/UserRestaurant"}/>
+                <FirstButton value={"Wine"} clase={"medium-button"} ruta={"/UserWine"}/>
             </div>
         </div>
         </div>  

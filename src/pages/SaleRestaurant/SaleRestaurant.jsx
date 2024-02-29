@@ -71,8 +71,8 @@ export const SaleRestaurant = () => {
                         
 
                         <div className="container-buttons-right">
-                            <FirstButton value={"Aceptar"} clase={"medium-button"}/>     
-                            <FirstButton value={"Volver"} clase={"medium-button"}/>
+                            <FirstButton value={"Aceptar"} clase={"medium-button"} ruta={"/UserRestaurant"}/>     
+                            <FirstButton value={"Volver"} clase={"medium-button"} ruta={"/UserRestaurant"}/>
                         </div>
                     </div>
             </div>         

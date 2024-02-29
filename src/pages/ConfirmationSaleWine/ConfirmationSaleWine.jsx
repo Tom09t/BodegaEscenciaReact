@@ -47,10 +47,8 @@ export const ConfirmationSaleWine = () => {
                 
             </div>
             <div className="container-buttons-right">
-                <FirstButton value={"Aceptar"} clase={"medium-button"}/>
-                <FirstButton value={"Volver"} clase={"medium-button"}/>
-                <FirstButton value={"Modificar"} clase={"medium-button-yellow"}/>
-                
+                <FirstButton value={"Aceptar"} clase={"medium-button"} ruta={"/UserWine"}/>
+                <FirstButton value={"Volver"} clase={"medium-button"} ruta={"/SaleWine"}/>
             </div>
         </div>
         

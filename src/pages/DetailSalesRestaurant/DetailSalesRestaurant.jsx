@@ -24,7 +24,7 @@ export const DetailSalesRestaurant = () => {
                 </tr>
             </table>
             <div className="container-buttons-right">
-                <FirstButton clase={"medium-button"} value={"Volver"}/>
+                <FirstButton clase={"medium-button"} value={"Volver"} ruta={"/UserRestaurant"}/>
             </div>
         </div>
     </>

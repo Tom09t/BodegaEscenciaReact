@@ -37,8 +37,8 @@ export const UserRestaurant = () => {
             <FirstButton value={"ver"} clase={"view-button"}/>
           </td>
           <td>
-            <FirstButton value={"ver"} clase={"view-button"}/>
-            <FirstButton value={"+"} clase={"add-button"}/>
+            <FirstButton value={"ver"} clase={"view-button"} ruta={"/DetailSalesRestaurant"}/>
+            <FirstButton value={"+"} clase={"add-button"} ruta={"/SaleRestaurant"}/>
           </td>
           <td>$34445</td>
           <td>
@@ -63,7 +63,7 @@ export const UserRestaurant = () => {
       </table>
       <div className="container-buttons-right">
         <FirstButton clase={"medium-button"} value={"Cerrar Dia"}/>
-        <FirstButton clase={"medium-button"} value={"Volver"}/>
+        <FirstButton clase={"medium-button"} value={"Volver"} ruta={"/HomeUser"}/>
       </div>
     </>
   )
