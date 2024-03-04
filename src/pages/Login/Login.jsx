@@ -1,6 +1,6 @@
 import { FirstButton } from "../../components/buttons/FirstButton"
 import Logo from "../../assets/Logo.png"
-import "./login.css"
+import "./Login.css"
  
 export const Login = () => {
   return (
