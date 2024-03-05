@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Header } from "../../components/Header/Header"
 import { useParams } from 'react-router-dom';
 import DetalleModal from './Detalle'
-
-
+import DetallesCombo from './DetalleCombo'
 
 
 const ListaVentas = () => {
@@ -11,7 +10,11 @@ const ListaVentas = () => {
     const [ventas, setVentas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [mostrarModal, setMostrarModal] = useState(false);
+
+    const [mostrarModalCombo, setMostrarModalCombo] = useState(false)
     const [ventaSeleccionada, setVentaSeleccionada] = useState(null);
+   
+
 
     useEffect(() => {
         setLoading(true);
@@ -27,14 +30,49 @@ const ListaVentas = () => {
             .finally(() => setLoading(false));
     }, [id]);
 
+    const handleEliminarVenta = (ventaId) => {
+        // Realizar la solicitud DELETE utilizando el ID de la venta
+        fetch(`http://localhost:8080/ventas/e/${ventaId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                // Puedes incluir cualquier otro encabezado necesario aquí
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error al borrar la venta: ${response.status}`);
+                }
+                console.log('Venta borrada exitosamente');
+                // Actualizar localmente las ventas después de eliminar la venta
+                setVentas(prevVentas => prevVentas.filter(venta => venta.id !== ventaId));
+            })
+            .catch(error => {
+                console.error('Error en la solicitud DELETE:', error);
+                // Aquí puedes manejar errores si es necesario
+            });
+    };
+
     const handleAbrirModal = (ventaId) => {
         setVentaSeleccionada(ventaId);
         setMostrarModal(true);
     };
 
+
+    const handleAbrirModalCombo = (ventaId) => {
+        setVentaSeleccionada(ventaId);
+        setMostrarModalCombo(true);
+    };
+
     const handleCerrarModal = () => {
         setVentaSeleccionada(null);
         setMostrarModal(false);
+    };
+ 
+
+    const handleCerrarModalCombo = () => {
+        setMostrarModalCombo(false);
+        setVentaComboSeleccionada(null);
     };
 
     return (
@@ -66,9 +104,17 @@ const ListaVentas = () => {
                                 )}
                             </td>
                             <td>
-                                <button>Ver detallesCombo</button>
+                                <button onClick={() => handleAbrirModalCombo(venta.id)}>Ver Detalles Combo</button>
+                                {mostrarModalCombo && (
+                                    <DetallesCombo id={ventaSeleccionada} onClose={handleCerrarModalCombo} />
+                                )}
                             </td>
                             <td>{venta.montoVenta}</td>
+                            <td>
+                                <button onClick={() => handleEliminarVenta(venta.id)}>
+                                    Eliminar Venta
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
