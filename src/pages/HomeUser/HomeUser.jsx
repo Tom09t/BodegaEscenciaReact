@@ -1,4 +1,4 @@
-import { FirstButton } from "../../components/buttons/FirstButton"
+import { ButtonNavigate } from "../../components/buttons/ButtonNavigate"
 import Logo from "../../assets/Logo.png"
 
 
@@ -15,8 +15,8 @@ export const HomeUser = () => {
                 <img src={Logo} alt="" />
             </div>
             <div className="container-buttons-center">
-                <FirstButton value={"Restaurante"} clase={"medium-button"} ruta={"/UserRestaurant"}/>
-                <FirstButton value={"Wine"} clase={"medium-button"} ruta={"/UserWine"}/>
+                <ButtonNavigate value={"Restaurante"} clase={"medium-button"} ruta={"/UserRestaurant"}/>
+                <ButtonNavigate value={"Wine"} clase={"medium-button"} ruta={"/UserWine"}/>
             </div>
         </div>
         </div>  

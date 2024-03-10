@@ -1,0 +1,36 @@
+.overlay{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .5);
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal{
+    width: 500px;
+    min-height: 100px;
+    background: #fff ;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 20px 35px 20px 35px;
+}
+.container-buttons-right-modal{
+    display: flex;
+    justify-content: end;
+}
+.container-buttons-right-modal button{
+    margin: 24px 10px 24px 10px;
+}
+.input-restaurant{
+        width: 420px;
+        height: 16px;
+        border: 1px solid black;
+        border-radius: 20px;
+        padding: 10px;
+    
+}

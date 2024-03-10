@@ -1,18 +1,9 @@
 import "./buttons.css"
-import { useNavigate } from "react-router-dom"
 
-export const FirstButton = ({value, type, clase, ruta}) => {
-  
-  const navigate = useNavigate();
-
-  const navega = (e) =>{
-    e.preventDefault();
-    navigate(ruta);
-    console.log("click!")
-  }
-  
+export const FirstButton = ({value, type, clase, onClick}) => {
   return (
-
-    <button type={type} className={clase} onClick={navega}>{value}</button>
+    <>
+      <button type={type} className={clase} onClick={onClick}>{value}</button>
+    </>
   )
 }
