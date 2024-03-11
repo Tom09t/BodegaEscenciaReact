@@ -9,7 +9,7 @@ const ModalNota = ({ grupo, onGuardarNota })  => {
 
 const [mostrarModal, setMostrarModal] = useState(false);
 const [nota, setNota] = useState('');
-
+const [botonColor, setBotonColor] = useState('default');
 
 useEffect(() => {
   const notaGuardada = localStorage.getItem(`nota_${grupo.id}`);
@@ -29,12 +29,13 @@ const handleCerrarModal = () => {
 const handleGuardarNota = async () => {
   // Guardar la nota
   localStorage.setItem(`nota_${grupo.id}`, nota);
+  setBotonColor(nota ? 'green' : 'default');
   // Cerrar el modal después de guardar la nota
   handleCerrarModal();
 };
 
 
-const botonColor = nota ? 'green' : 'default';
+
 
 return (
   <>

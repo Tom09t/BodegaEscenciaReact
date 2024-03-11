@@ -13,22 +13,35 @@ const ListaVentas = () => {
 
     const [mostrarModalCombo, setMostrarModalCombo] = useState(false)
     const [ventaSeleccionada, setVentaSeleccionada] = useState(null);
+    const [ventaSeleccionadaCombo, setVentaSeleccionadaCombo] = useState(null);
+    const [actualizarVentas, setActualizarVentas] = useState(true); // Nuevo estado
    
 
-
     useEffect(() => {
-        setLoading(true);
-        fetch(`http://localhost:8080/ventas/grupo/${id}`)
-            .then((response) => response.json())
-            .then((ventas) => {
-                console.log("Datos de la API:", ventas);
-                setVentas(ventas);
-            })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-            })
-            .finally(() => setLoading(false));
-    }, [id]);
+        console.log('Entró en el useEffect de ListaVentas');
+        if (actualizarVentas) {
+            console.log('Se actualizarán las ventas...');
+            setLoading(true);
+            fetch(`http://localhost:8080/ventas/grupoR/${id}`)
+                .then((response) => response.json())
+                .then((ventas) => {
+                    console.log("Datos de la API:", ventas);
+                    setVentas(ventas);
+                })
+                .catch((error) => {
+                    console.error('Error fetching data:', error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                    setActualizarVentas(false); // Marcamos como actualizado
+                    console.log('Ventas actualizadas.');
+                });
+        }
+    }, [id, actualizarVentas]);
+
+    const cargarVentas = () => {
+        setActualizarVentas(true);
+    };
 
     const handleEliminarVenta = (ventaId) => {
         // Realizar la solicitud DELETE utilizando el ID de la venta
@@ -53,6 +66,8 @@ const ListaVentas = () => {
             });
     };
 
+    
+
     const handleAbrirModal = (ventaId) => {
         setVentaSeleccionada(ventaId);
         setMostrarModal(true);
@@ -72,7 +87,7 @@ const ListaVentas = () => {
 
     const handleCerrarModalCombo = () => {
         setMostrarModalCombo(false);
-        setVentaComboSeleccionada(null);
+        setVentaSeleccionadaCombo(null);
     };
 
     return (
@@ -100,13 +115,13 @@ const ListaVentas = () => {
                             <td>
                                 <button onClick={() => handleAbrirModal(venta.id)}>Ver Detalles</button>
                                 {mostrarModal && (
-                                    <DetalleModal id={ventaSeleccionada} onClose={handleCerrarModal} />
+                                  <DetalleModal id={ventaSeleccionada} onClose={handleCerrarModal} cargarVentas={cargarVentas} />
                                 )}
                             </td>
                             <td>
                                 <button onClick={() => handleAbrirModalCombo(venta.id)}>Ver Detalles Combo</button>
                                 {mostrarModalCombo && (
-                                    <DetallesCombo id={ventaSeleccionada} onClose={handleCerrarModalCombo} />
+                                    <DetallesCombo id={ventaSeleccionada} onClose={handleCerrarModalCombo}  cargarVentas={cargarVentas}/>
                                 )}
                             </td>
                             <td>{venta.montoVenta}</td>

@@ -12,15 +12,18 @@
 
 .container {
     width: 60%;
+    margin: auto;
     min-height: 80%;
-
+    max-width: 60%;
     background-color: bisque;
- 
     position: relative;
     border-radius: 5px;
     box-shadow: rgb(100, 100, 111, 0.2) 0px 7px 29px 0px;
     padding: 20px;
-    flex-direction: column;
+     display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .container-2 {
     background-color: #e8e8e8;
@@ -28,8 +31,8 @@
     padding-bottom: 200px;
     border-radius: 10px;
     display: flex;
-    width: 95%;
-    height: 550px;
+    width: 90%;
+    height: 60%;
     position: absolute;
   }
 
@@ -38,7 +41,6 @@
 .formaPago{
     position: relative;
     height: 100px;
-   
     padding-top: 12px;
     padding-left: 180px;
     padding-right: 130px;
@@ -70,8 +72,8 @@
 .detalle{
   
   display: flex;
-  padding-left: 200px;
-height: 450px;
+ 
+   height: 450px;
 
   display: flex;
   flex-wrap: wrap;
@@ -120,12 +122,14 @@ width: 120px;
 
 
 .boton-container{
+    
     display: flex;
     width: 25%;
     height: 70px;
     margin-left: 39%;
     margin-top: 600px;
     padding-top: 200px;
+    position: absolute;
     justify-content:space-between;
    
     

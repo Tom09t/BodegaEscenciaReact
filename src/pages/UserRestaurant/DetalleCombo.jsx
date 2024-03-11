@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import "./modalDetalle.css"
 
-const DetallesCombo = ({ id, onClose }) => {
+const DetallesCombo = ({ id, onClose, cargarVentas  }) => {
     const [detallesCombo, setDetallesCombo] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [detalleEliminado, setDetalleEliminado] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -19,7 +20,28 @@ const DetallesCombo = ({ id, onClose }) => {
             console.error('Error fetching data:', error);
           })
           .finally(() => setLoading(false));
-      }, [id]);
+      }, [id,detalleEliminado]);
+
+      const eliminarDetalleVenta = (idVenta, idDetalleVenta) => {
+        fetch(`http://localhost:8080/detallesVentas/${idVenta}/${idDetalleVenta}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Error al eliminar el detalle de venta. Estado: ${response.status}`);
+          }
+      
+          console.log('Detalle de venta eliminado exitosamente.');
+          setDetalleEliminado(prevState => !prevState); 
+          cargarVentas();
+        })
+        .catch(error => {
+          console.error('Error al eliminar el detalle de venta:', error.message);
+        });
+      };
       return (
         <div className="modal">
           <div className="modal-content">
@@ -36,12 +58,17 @@ const DetallesCombo = ({ id, onClose }) => {
                       <span className="detalle-cantidad">Combo</span>
                       <span className="detalle-producto">Cantidad</span>
                       <span className="detalle-subtotal">Total</span>
+                      <span className="detalle-subtotal">Acciones</span>
                     </div>
                     {detallesCombo.map((detalle) => (
                       <div key={detalle.id} className="detalle-item">
+                          {console.log(detalle.combo)}
                         <span className="detalle-cantidad">{detalle.combo?.nombreCombo}</span>
                         <span className="detalle-producto">{detalle.cantidad}</span>
                         <span className="detalle-subtotal">{detalle.subTotal.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</span>
+                        <span className="detalle-subtotal">
+                    <button onClick={() => eliminarDetalleVenta( id, detalle.id)}>X</button>
+        </span>
                       </div>
                     ))}
                   </>

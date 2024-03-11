@@ -1,3 +1,8 @@
 .container-title-restaurant{
     margin: 10px 0px 20px 20px;
 }
+
+input {
+    width: 50px; /* Puedes ajustar el ancho según tus necesidades */
+    padding: 5px; /* Puedes ajustar el espaciado interno según tus necesidades */
+  }

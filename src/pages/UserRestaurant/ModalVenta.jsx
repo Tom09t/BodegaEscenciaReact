@@ -41,7 +41,7 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
         if (event) {
             event.preventDefault();
 
-            const url = 'http://localhost:8080/ventas/guardar';
+            const url = 'http://localhost:8080/ventas/guardarR';
             const opcionesSolicitud = {
                 method: 'POST',
                 headers: {

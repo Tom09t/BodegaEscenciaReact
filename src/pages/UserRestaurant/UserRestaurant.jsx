@@ -7,17 +7,30 @@ import { Header } from "../../components/Header/Header"
 import { useState, useEffect } from "react"
 import { Link } from 'react-router-dom';
 
-
+import Comision from "./comision"
 
 export const UserRestaurant = () => {
 
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [reloadData, setReloadData] = useState(false);
+  const [nuevoComensales, setNuevoComensales] = useState('');
+  const setEditandoComensales = (grupoId, valor) => {
+    setEdicionPorGrupo((prevEdicion) => {
+      return { ...prevEdicion, [grupoId]: valor };
+    });
+  };
+ 
+  const [edicionPorGrupo, setEdicionPorGrupo] = useState({});
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [grupoSeleccionado, setGrupoSeleccionado] = useState(null);
+
+
+
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:8080/grupos/list")
+    fetch("http://localhost:8080/grupos/listR")
       .then((response) => response.json())
       .then((data) => {
         console.log("Datos de la API:", data);
@@ -28,6 +41,14 @@ export const UserRestaurant = () => {
       })
       .finally(() => setLoading(false));
   }, [reloadData]);
+
+
+  const idEmpresa=(grupo)=>{
+
+const empresa=grupo.empresa.id;
+return empresa;
+
+  }
 
   const calcularComisionTotal = (grupo) => {
     if (!grupo || !grupo.empresa || !grupo.empresa.empleadoEmpresa) {
@@ -43,26 +64,8 @@ export const UserRestaurant = () => {
   };
 
 
-  const calcularDescuentoComision = (grupo) => {
-    if (!grupo || !grupo.empresa || !grupo.empresa.empleadoEmpresa) {
-      console.error("Datos de grupo incompletos o incorrectos");
-      return 0;
-    }
 
-    const comisionEmpresa = grupo.empresa.comision;
-    const comisionEmpleados = grupo.empresa.empleadoEmpresa.reduce((acc, empleado) => acc + empleado.comision, 0);
-    const totalComision = comisionEmpresa + comisionEmpleados;
-    const totalVentas = (grupo.montoGrupo + grupo.montoMesa) * totalComision
-    const total = totalVentas / 100
-    return total;
-  }
 
-  const calcularTotalGeneral = (grupo) => {
-    const totalDescuentoComision = calcularDescuentoComision(grupo);
-    const totalGeneral = grupo.montoGrupo + grupo.montoMesa - totalDescuentoComision;
-
-    return totalGeneral;
-  };
 
 
 
@@ -96,6 +99,45 @@ export const UserRestaurant = () => {
     }
   };
 
+  const actualizarComensales = async (grupoId, comensales) => {
+    try {
+      const response = await fetch(`http://localhost:8080/grupos/${grupoId}/a`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          comensales: comensales, // Cambia estadoGrupo a comensales
+        }),
+      });
+
+      if (response.ok) {
+        console.log(`Grupo ${grupoId} actualizado a ${comensales} con éxito.`);
+        // Actualizar localmente el estado del grupo en data
+        setData((prevData) => {
+          return prevData.map((grupo) => {
+            if (grupo.id === grupoId) {
+              return { ...grupo, comensales: comensales };
+            }
+            return grupo;
+          });
+        });
+        setEditandoComensales(false); // Después de actualizar, deja de editar
+      } else {
+        console.error(`Error al actualizar el estado del grupo ${grupoId}.`);
+      }
+    } catch (error) {
+      console.error('Error en la llamada a la API:', error);
+    }
+  };
+  const handleUpdateComensales = (grupoId) => {
+    actualizarComensales(grupoId, nuevoComensales);
+    setEditandoComensales(grupoId, false);
+    reloadData();
+  };
+
+
+
   const handleVentaCreada = (nuevaVenta) => {
     // Lógica para manejar la nueva venta
     console.log('Nueva venta creada:', nuevaVenta);
@@ -103,7 +145,18 @@ export const UserRestaurant = () => {
     setReloadData((prev) => !prev);
   };
 
+  const handleCerrarModal = () => {
+    setVentaSeleccionada(null);
+    setMostrarModal(false);
+    
+};
 
+
+
+
+  const handleInputChange = (event) => {
+    setNuevoComensales(parseInt(event.target.value, 10)); // Convierte el valor a un número entero
+  };
 
   return (
     <>
@@ -137,21 +190,46 @@ export const UserRestaurant = () => {
               <td>{grupo.id}</td>
               <td>{grupo.empresa.nombreEmpresa}</td>
               <td>{/*fecha */}</td>
-              <td>{calcularComisionTotal(grupo)}</td>
+              <td>{calcularComisionTotal(grupo)}
+           <Comision empresa={idEmpresa(grupo)}></Comision>
+              </td>
+     
+
               <td>
                 <Link to={`/ventas/${grupo.id}`}>
                   <button>Ver</button>
                 </Link>
                 <CrearVenta grupoId={grupo.id} onVentaCreada={handleVentaCreada} reloadData={reloadData} />
 
-
               </td>
-              <td>{grupo.montoGrupo}</td>
+              <td>{grupo.montoVentasGrupo}</td>
               <td>{grupo.montoMesa}</td>
-              <td>{grupo.comensales}</td>
-              <td>{grupo.montoGrupo}</td>
-              <td>{calcularDescuentoComision(grupo)}</td>
-              <td>{calcularTotalGeneral(grupo)}</td>
+           <td>
+              {edicionPorGrupo[grupo.id] ? (
+                <>
+                  <input
+                    type="number"
+                    value={nuevoComensales}
+                    onChange={handleInputChange}
+                  />
+                  <button onClick={() => handleUpdateComensales(grupo.id)}>
+                    Guardar
+                  </button>
+                </>
+              ) : (
+                <>
+                  {grupo.comensales}
+                  <button onClick={() => setEditandoComensales(grupo.id, true)}>
+                    Modificar
+                  </button>
+                </>
+              )}
+              </td>
+
+
+              <td>{grupo.descuentoCtaCorriente}</td>
+              <td>{grupo.descuentoComision}</td>
+              <td>{grupo.total}</td>
               <td> <ModalNota grupo={grupo} onGuardarNota={(grupoId, nuevaNota) => guardarNota(grupoId, nuevaNota)} /></td>
               <td>
 
