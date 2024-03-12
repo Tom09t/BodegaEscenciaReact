@@ -184,18 +184,7 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
                                         <option value="TRANSFERENCIA">TRANSFERENCIA</option>
                                     </select>
                                 </label>
-                                <label>
-                                    Tipo de Venta:
-                                    <select
-                                        name="tipoVenta"
-                                        value={datos.tipoVenta}
-                                        onChange={manejarCambios}
-                                    >
-                                        <option value="WINE">WINE</option>
-                                        <option value="RESTAURANTE">RESTAURANTE</option>
-
-                                    </select>
-                                </label>
+                             
                                 
                                  </div>
                                 {/* Campos para el detalle */}
