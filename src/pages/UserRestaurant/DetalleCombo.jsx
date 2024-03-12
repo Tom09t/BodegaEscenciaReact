@@ -7,6 +7,67 @@ const DetallesCombo = ({ id, onClose, cargarVentas  }) => {
     const [detallesCombo, setDetallesCombo] = useState([]);
     const [loading, setLoading] = useState(true);
     const [detalleEliminado, setDetalleEliminado] = useState(false);
+    const [detalleEditando, setDetalleEditando] = useState(null);
+    const [edicionDetalles, setEdicionDetalles] = useState({})
+    const [nombreComboEditando, setNombreComboEditando] = useState('');
+
+  
+  
+  
+    const handleEditarClick = (detalleId) => {
+      setDetalleEditando(detalleId);
+      setNombreComboEditando(edicionDetalles[detalleId]?.combo.nombreCombo || detallesCombo.find(detalle => detalle.id === detalleId)?.combo.nombreCombo|| '');
+    };
+
+
+    const handleInputChange = (detalleId, campo, valor) => {
+      setEdicionDetalles((prevEdicionDetalles) => ({
+        ...prevEdicionDetalles,
+        [detalleId]: {
+          ...prevEdicionDetalles[detalleId],
+          [campo]: valor,
+        },
+      }));
+      if (campo === 'nombreCombo') {
+        setNombreComboEditando(valor);
+      }
+    }
+
+
+
+    const handleGuardarClick = async (detalleId) => {
+      try {
+        const requestBody = {};
+    
+        if (edicionDetalles[detalleId]?.nombreCombo !== undefined) {
+          requestBody.combo = {
+            nombreCombo: edicionDetalles[detalleId].nombreCombo,
+          };
+        }
+    
+        if (edicionDetalles[detalleId]?.cantidad !== undefined) {
+          requestBody.cantidad = edicionDetalles[detalleId].cantidad;
+        }
+    
+        const response = await fetch(`http://localhost:8080/detallesVentas/c/${id}/${detalleId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        });
+    
+        if (response.ok) {
+          console.log(`Detalle de venta con ID ${detalleId} actualizado con éxito.`);
+          setDetalleEditando(null);
+          cargarVentas();
+        } else {
+          console.error(`Error al actualizar el detalle de venta con ID ${detalleId}.`);
+        }
+      } catch (error) {
+        console.error('Error en la llamada a la API:', error);
+      }
+    };
 
     useEffect(() => {
         setLoading(true);
@@ -20,7 +81,11 @@ const DetallesCombo = ({ id, onClose, cargarVentas  }) => {
             console.error('Error fetching data:', error);
           })
           .finally(() => setLoading(false));
-      }, [id,detalleEliminado]);
+      }, [id,detalleEliminado,detalleEditando]);
+
+
+
+
 
       const eliminarDetalleVenta = (idVenta, idDetalleVenta) => {
         fetch(`http://localhost:8080/detallesVentas/${idVenta}/${idDetalleVenta}`, {
@@ -63,10 +128,39 @@ const DetallesCombo = ({ id, onClose, cargarVentas  }) => {
                     {detallesCombo.map((detalle) => (
                       <div key={detalle.id} className="detalle-item">
                           {console.log(detalle.combo)}
+                          {detalleEditando === detalle.id ? (
+                    <input
+                    type="text"
+                    className="detalle-cantidad"
+                    value={nombreComboEditando}
+                    onChange={(e) => handleInputChange(detalle.id, 'nombreCombo', e.target.value)}
+                  />
+                    ) : (
+
                         <span className="detalle-cantidad">{detalle.combo?.nombreCombo}</span>
+                        )}
+                          {detalleEditando === detalle.id ? (
+                      <input
+                        type="number"
+                        className="detalle-producto"
+                        value={edicionDetalles[detalle.id]?.cantidad || detalle.cantidad}
+                        onChange={(e) => handleInputChange(detalle.id, 'cantidad', e.target.value)}
+                      />
+                    ):(
+
                         <span className="detalle-producto">{detalle.cantidad}</span>
-                        <span className="detalle-subtotal">{detalle.subTotal.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</span>
+                        )}
+                          <span className="detalle-subtotal">
+                      {detalle.subTotal.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}
+                    </span>
+                   
+                   
                         <span className="detalle-subtotal">
+                        {detalleEditando === detalle.id ? (
+                      <button onClick={() => handleGuardarClick(detalle.id)}>Guardar</button>
+                    ) : (
+                      <button onClick={() => handleEditarClick(detalle.id)}>Editar</button>
+                    )}
                     <button onClick={() => eliminarDetalleVenta( id, detalle.id)}>X</button>
         </span>
                       </div>
