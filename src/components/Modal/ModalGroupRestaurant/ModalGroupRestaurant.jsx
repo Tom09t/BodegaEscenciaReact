@@ -1,7 +1,7 @@
 import "./ModalGroupRestaurant.css"
 import { useState } from "react"
-import { FirstButton } from "../buttons/FirstButton"
-import { useFetch } from "../../useFetch"
+import { FirstButton } from "../../buttons/FirstButton"
+import { useFetch } from "../../../useFetch"
 
 export const ModalGroupRestaurant = ({estado, cambiarEstado}) => {
   
@@ -23,7 +23,7 @@ export const ModalGroupRestaurant = ({estado, cambiarEstado}) => {
 
     // Hacer la petición al backend para crear el grupo
     try {
-      const response = await fetch('http://localhost:8080/grupos/CrearNuevoGrupo', {
+      const response = await fetch('http://localhost:8080/grupos/CrearNuevoGrupoRestaurante', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

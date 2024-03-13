@@ -1,13 +1,20 @@
 import { Header } from "../../components/Header/Header"
 import { FirstButton } from "../../components/buttons/FirstButton"
+import { useState } from "react"
+import { ModalGroupWine } from "../../components/Modal/ModalGroupWine/ModalGroupWine";
+
 export const UserWine = () => {
-  return (
+    
+    const [estadoModal1, cambiarEstadoModal1] = useState(false);
+  
+    return (
     <>
+        <ModalGroupWine estado={estadoModal1} cambiarEstado={cambiarEstadoModal1}/>
         <Header titulo={"Usuario Wine"}/>
         <div className="container-title-restaurant">
             <h2 className="title">Seccion Wine</h2>
             <h2 className="subtitle">Grupos</h2>
-            <FirstButton value={"Agregar Grupo"} clase={"small-button"}/>
+            <FirstButton clase={"small-button"} value={"Agregar Grupo"} onClick={() =>{cambiarEstadoModal1(true);}}/>
         </div>
 
         <table className="table-generic">

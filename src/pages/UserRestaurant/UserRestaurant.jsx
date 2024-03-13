@@ -2,9 +2,11 @@ import { FirstButton } from "../../components/buttons/FirstButton"
 import { ButtonNavigate } from "../../components/buttons/ButtonNavigate"
 import "./UserRestaurant.css"
 import { Header } from "../../components/Header/Header"
-import { ModalGroupRestaurant } from "../../components/Modal/ModalGroupRestaurant"
+import { ModalGroupRestaurant } from "../../components/Modal/ModalGroupRestaurant/ModalGroupRestaurant";
 import { useState } from "react"
+
 export const UserRestaurant = () => {
+  
   const [estadoModal1, cambiarEstadoModal1] = useState(false);
 
   return (
