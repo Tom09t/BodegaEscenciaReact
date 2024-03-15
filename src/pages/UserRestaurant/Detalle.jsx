@@ -14,6 +14,7 @@ const DetalleModal = ({ id, onClose, cargarVentas }) => {
   const [edicionDetalles, setEdicionDetalles] = useState({});
   const [nombreProductoEditando, setNombreProductoEditando] = useState('');
   const [detalleEliminado, setDetalleEliminado] = useState(false);
+  
   const handleEditarClick = (detalleId) => {
     setDetalleEditando(detalleId);
     setNombreProductoEditando(edicionDetalles[detalleId]?.nombreProducto || detalles.find(detalle => detalle.id === detalleId)?.producto.nombreProducto || '');

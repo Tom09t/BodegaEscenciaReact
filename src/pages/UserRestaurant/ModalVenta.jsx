@@ -13,7 +13,7 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
     const [datos, setDatos] = useState({
         formaPago: 'CUENTA_CORRIENTE',
         grupoId: grupoId,
-        tipoVenta: 'WINE',
+       
         detalles: [
             {
                 cantidad: 0,
@@ -184,8 +184,6 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
                                         <option value="TRANSFERENCIA">TRANSFERENCIA</option>
                                     </select>
                                 </label>
-                             
-                                
                                  </div>
                                 {/* Campos para el detalle */}
                                 <div className='detalle'>

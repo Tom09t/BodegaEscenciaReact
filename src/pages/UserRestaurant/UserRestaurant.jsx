@@ -207,7 +207,7 @@ return empresa;
            <td>
               {edicionPorGrupo[grupo.id] ? (
                 <>
-                  <input
+                  <input className="input-mod"
                     type="number"
                     value={nuevoComensales}
                     onChange={handleInputChange}
