@@ -18,11 +18,12 @@ export const ModalGroupWine = ({estado, cambiarEstado}) => {
         // Construir el objeto con los datos
         const nuevoGrupo = {
           empresa: Number(selectedEmpresa),
+          comsales: 0
         };
     
         // Hacer la petición al backend para crear el grupo
         try {
-          const response = await fetch('http://localhost:8080/grupos/CrearNuevoGrupoWine', {
+          const response = await fetch('http://localhost:8080/grupos/CrearNuevoGrupo', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

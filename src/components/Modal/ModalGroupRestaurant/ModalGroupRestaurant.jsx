@@ -14,16 +14,16 @@ export const ModalGroupRestaurant = ({estado, cambiarEstado}) => {
   
   const handleAceptar = async (e) => {
     e.preventDefault();
-
+    console.log(Number(selectedEmpresa));
     // Construir el objeto con los datos
     const nuevoGrupo = {
-      comensales: Number(comensales),
       empresa: Number(selectedEmpresa),
+      comensales: Number(comensales)
     };
 
     // Hacer la petición al backend para crear el grupo
     try {
-      const response = await fetch('http://localhost:8080/grupos/CrearNuevoGrupoRestaurante', {
+      const response = await fetch('http://localhost:8080/grupos/CrearNuevoGrupo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -62,6 +62,7 @@ export const ModalGroupRestaurant = ({estado, cambiarEstado}) => {
                 <form onSubmit={handleAceptar}>
 
                   <select className="select-restaurant" value={selectedEmpresa} onChange={(e) => setSelectedEmpresa(e.target.value)}>
+                    <option value="0">Seleccionar Empresa</option>
                     {data &&
                       data.map((empresa) => (
                         <option key={empresa.id} value={empresa.id}>
