@@ -1,6 +1,6 @@
 import { ButtonNavigate } from "../../components/buttons/ButtonNavigate"
 import Logo from "../../assets/Logo.png"
-import "./login.css"
+import "./Login.css"
  
 export const Login = () => {
 

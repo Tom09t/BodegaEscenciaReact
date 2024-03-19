@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from "../../components/Header/Header"
 import { useParams } from 'react-router-dom';
-import DetalleModal from './Detalle'
-import DetallesCombo from './DetalleCombo'
+import DetalleModal from './ModalDetalle/Detalle'
+import DetallesCombo from './ModalDetalle/DetalleCombo'
 
 
 const ListaVentas = () => {

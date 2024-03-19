@@ -4,8 +4,8 @@ import "./UserRestaurant.css"
 import { Header } from "../../components/Header/Header"
 import { ModalGroupRestaurant } from "../../components/Modal/ModalGroupRestaurant/ModalGroupRestaurant";
 import { useState, useEffect } from "react"
-import ModalNota from "./ModalNota"
-import CrearVenta from "./ModalVenta"
+import ModalNota from "./ModalNota/ModalNota"
+import CrearVenta from "./ModalVenta/ModalVenta"
 import { Link } from 'react-router-dom';
 import Comision from "./comision"
 
@@ -193,16 +193,17 @@ export const UserRestaurant = () => {
               <td>{grupo.id}</td>
               <td>{grupo.empresa.nombreEmpresa}</td>
               <td>{/*fecha */}</td>
-              <td>{calcularComisionTotal(grupo)} %
+              <td>{calcularComisionTotal(grupo)}
            <Comision empresa={idEmpresa(grupo)}></Comision>
               </td>
      
 
               <td>
                 <Link to={`/ventas/${grupo.id}`}>
-                  <FirstButton value={"ver"} clase={"view-button"}/>
+                  <button>Ver</button>
                 </Link>
-                <CrearVenta grupoId={grupo.id} onVentaCreada={handleVentaCreada} reloadData={reloadData}/>
+                <CrearVenta grupoId={grupo.id} onVentaCreada={handleVentaCreada} reloadData={reloadData} />
+
               </td>
               <td>{grupo.montoVentasGrupo}</td>
               <td>{grupo.montoMesa}</td>
@@ -221,8 +222,9 @@ export const UserRestaurant = () => {
               ) : (
                 <>
                   {grupo.comensales}
-                  <FirstButton value={"Modi"} clase={"modify-button"} onClick={() => setEditandoComensales(grupo.id, true)}/> 
-                  
+                  <button onClick={() => setEditandoComensales(grupo.id, true)}>
+                    Modificar
+                  </button>
                 </>
               )}
               </td>
@@ -253,8 +255,8 @@ export const UserRestaurant = () => {
       </table>
 
       <div className="container-buttons-right">
-        <FirstButton clase={"medium-button"} value={"Cerrar Dia"}/>
-        <ButtonNavigate clase={"medium-button"} value={"Volver"} ruta={"/HomeUser"}/>
+        <FirstButton clase={"medium-button"} value={"Cerrar Dia"} />
+        <FirstButton clase={"medium-button"} value={"Volver"} />
       </div>
     </>
   )

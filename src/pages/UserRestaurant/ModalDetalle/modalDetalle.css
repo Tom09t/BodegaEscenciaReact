@@ -1,0 +1,62 @@
+.modal {
+    width: 60%;
+    height: 70%;
+    position: fixed;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    background: rgba(182, 177, 177, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgb(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    width: 80%; /* Ajusta el ancho según tus necesidades */
+    height: 80%; /* Ajusta la altura según tus necesidades */
+    overflow-y: auto;
+  }
+  
+  .detalle-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px;
+    background-color: rgb(235, 128, 124);
+    font-size: 25px;
+    font-weight: bold;
+    width: 93%;
+    border-radius: 20px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .detalle-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    padding: 25px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .detalle-cantidad {
+    margin-right: 16px;
+  }
+  
+  .detalle-subtotal,
+  .detalle-producto {
+    flex-grow: 1;
+    text-align: right;
+  }
+  
+  .cerrar-button {
+    display: flex;
+    position: absolute;
+    top: 15px; /* Ajusta la posición superior según tus necesidades */
+    right: 15px; /* Ajusta la posición derecha según tus necesidades */
+    background-color: red;
+    cursor: pointer;
+    border-radius: 10px;
+  }

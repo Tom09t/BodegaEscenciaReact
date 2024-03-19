@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { FirstButton } from '../../components/buttons/FirstButton';
-
+import { FirstButton } from '../../../components/buttons/FirstButton';
+import "./modalVenta.css"
 
 
 const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
