@@ -13,7 +13,7 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
     const [datos, setDatos] = useState({
         formaPago: 'CUENTA_CORRIENTE',
         grupoId: grupoId,
-        tipoVenta: 'WINE',
+        tipoVenta: 'RESTAURANTE',
         detalles: [
             {
                 cantidad: 0,
@@ -40,6 +40,7 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
         console.log('Entró en manejarEnvio');
         if (event) {
             event.preventDefault();
+            
 
             const url = 'http://localhost:8080/ventas/guardarR';
             const opcionesSolicitud = {

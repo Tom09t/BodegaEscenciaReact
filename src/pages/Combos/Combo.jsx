@@ -114,7 +114,7 @@ const Combo = () => {
                     </tbody>
                     </table>
                     {showModal && selectedCombo && (
-    <div className="modal">
+    <div className="modal-combo">
         <div className="modal-background" onClick={handleCerrarModal}></div>
         <div className="modal-content">
             <div className="box">

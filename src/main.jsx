@@ -13,6 +13,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom"
 import ListaVentas from './pages/UserRestaurant/Venta'
 import Productos from './pages/Products/Producto'
 import Combo from './pages/Combos/Combo'
+import Regalo from './pages/UserWine/Regalo/Regalo'
 
 
 
@@ -33,6 +34,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/productos' element={<Productos/>}/>
         <Route path='/combos' element={<Combo/>}/>
         <Route path='/ConfirmationSaleWine' element={<ConfirmationSaleWine/>}></Route>
+        <Route path='/regalos/:id' element={<Regalo/>}></Route>
       </Routes>
     </BrowserRouter>
     
