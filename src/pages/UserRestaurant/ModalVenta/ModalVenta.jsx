@@ -4,12 +4,12 @@ import { FirstButton } from '../../../components/buttons/FirstButton';
 import "./modalVenta.css"
 
 
-const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
+const CrearVenta = ({ grupoId, onVentaCreada, reloadData }) => {
     const [mostrarModal, setMostrarModal] = useState(false);
-    
-    
-    
-    
+
+    const [productos, setProductos] = useState([]);
+
+
     const [datos, setDatos] = useState({
         formaPago: 'CUENTA_CORRIENTE',
         grupoId: grupoId,
@@ -40,7 +40,7 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
         console.log('Entró en manejarEnvio');
         if (event) {
             event.preventDefault();
-            
+
 
             const url = 'http://localhost:8080/ventas/guardarR';
             const opcionesSolicitud = {
@@ -53,20 +53,20 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
 
             try {
                 const response = await fetch(url, opcionesSolicitud);
-            
+
                 if (!response.ok) {
-                  throw new Error(`Error en la solicitud: ${response.statusText}`);
+                    throw new Error(`Error en la solicitud: ${response.statusText}`);
                 }
-            
+
                 const data = await response.json();
                 console.log('Respuesta exitosa:', data);
-            
+
                 // Llama a la función onVentaCreada pasada como prop
                 onVentaCreada(data);
-            
-              } catch (error) {
+
+            } catch (error) {
                 console.error('Error en la solicitud:', error);
-              }
+            }
         }
     };
 
@@ -86,18 +86,17 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
     };
 
     const manejarCambiosDetalle = (event, indice) => {
-        console.log('Valor del evento:', event.target.value);
         const { name, value } = event.target;
-        setDatos((prevDatos) => ({
-            ...prevDatos,
-            detalles: prevDatos.detalles.map((detalle, i) => {
-                if (i === indice) {
-                    return { ...detalle, [name]: value };
-                }
-                return detalle;
-            }),
+        setDatos(prevDatos => ({
+          ...prevDatos,
+          detalles: prevDatos.detalles.map((detalle, i) => {
+            if (i === indice) {
+              return { ...detalle, [name]: value };
+            }
+            return detalle;
+          }),
         }));
-    };
+      };
 
 
 
@@ -113,6 +112,30 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
         });
     };
 
+    useEffect(() => {
+        const obtenerProductos = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/productos');
+                if (response.ok) {
+                    const data = await response.json();
+                    setProductos(data); // Actualizar la lista de productos en el estado
+                } else {
+                    console.error('Error al obtener la lista de productos');
+                }
+            } catch (error) {
+                console.error('Error en la solicitud:', error);
+            }
+        };
+
+        obtenerProductos(); // Llamar a la función para obtener productos
+    }, []);
+
+    const opcionesProductos = productos.map(producto => (
+        <option key={producto.id} value={producto.id}>
+            {producto.nombreProducto} 
+        </option>
+    ));
+
     const camposDetalles = [];
     for (let i = 0; i < cantidadDetalles; i++) {
         camposDetalles.push(
@@ -127,14 +150,16 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
                     />
                 </label>
                 <label>
-                    Producto ID:
-                    <input
-                        type="number"
-                        name={`productoId`}
-                        value={datos.detalles[i].productoId}
-                        onChange={(event) => manejarCambiosDetalle(event, i)}
-                    />
-                </label>
+                Producto:
+                <select
+                    name="productoId"
+                    value={datos.detalles[i].productoId}
+                    onChange={event => manejarCambiosDetalle(event, i)}
+                >
+                    <option value="">Seleccione un producto</option>
+                    {opcionesProductos}
+                </select>
+            </label>
                 <label>
                     Tipo de Detalle:
                     <select
@@ -160,7 +185,7 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
 
         <>
 
-            <FirstButton clase={"add-button"}  value={"+"} onClick={handleAbrirModal}/>
+            <FirstButton clase={"add-button"} value={"+"} onClick={handleAbrirModal} />
 
             {mostrarModal && (
                 <div className='overlay'>
@@ -170,40 +195,40 @@ const CrearVenta = ({ grupoId ,onVentaCreada, reloadData }) => {
                         </div>
                         <div className='container-2'>
                             <div className='container3'>
-                           
-                            <form  onSubmit={(event) => { manejarEnvio(event); }}>
-                                <div className='formaPago'>
-                                <label>
-                                    Forma de Pago:
-                                    <select
-                                        name="formaPago"
-                                        value={datos.formaPago}
-                                        onChange={manejarCambios}
-                                    >
-                                        <option value="CUENTA_CORRIENTE">CUENTA_CORRIENTE</option>
-                                        <option value="EFECTIVO">EFECTIVO</option>
-                                        <option value="TRANSFERENCIA">TRANSFERENCIA</option>
-                                    </select>
-                                </label>
-                             
-                                
-                                 </div>
-                                {/* Campos para el detalle */}
-                                <div className='detalle'>
-                                {camposDetalles}
-                                </div>
 
-                           
-                            </form>
-                           <div className='boton-container2' >
-                            <button className="boton2" onClick={manejarAgregarDetalle}>
-                                    Agregar otro detalle  </button>
-                                <button className="boton2" onClick={manejarBorrarDetalle}>
-                                    Borrar último detalle
-                                </button>
+                                <form onSubmit={(event) => { manejarEnvio(event); }}>
+                                    <div className='formaPago'>
+                                        <label>
+                                            Forma de Pago:
+                                            <select
+                                                name="formaPago"
+                                                value={datos.formaPago}
+                                                onChange={manejarCambios}
+                                            >
+                                                <option value="CUENTA_CORRIENTE">CUENTA_CORRIENTE</option>
+                                                <option value="EFECTIVO">EFECTIVO</option>
+                                                <option value="TRANSFERENCIA">TRANSFERENCIA</option>
+                                            </select>
+                                        </label>
+
+
+                                    </div>
+                                    {/* Campos para el detalle */}
+                                    <div className='detalle'>
+                                        {camposDetalles}
+                                    </div>
+
+
+                                </form>
+                                <div className='boton-container2' >
+                                    <button className="boton2" onClick={manejarAgregarDetalle}>
+                                        Agregar otro detalle  </button>
+                                    <button className="boton2" onClick={manejarBorrarDetalle}>
+                                        Borrar último detalle
+                                    </button>
+                                </div>
                             </div>
-                            </div>
-                         
+
                         </div>
                         <div className='boton-container'>
                             <button

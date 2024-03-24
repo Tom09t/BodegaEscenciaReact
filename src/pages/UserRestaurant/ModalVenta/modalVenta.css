@@ -79,7 +79,13 @@
 
 }
 
+.seleccionador{
+  display: flex;
+position: relative;
+left: 35rem;
+bottom: 2rem;
 
+}
 .detalle select{
     font-size: 20px; 
     padding: 10px;   
