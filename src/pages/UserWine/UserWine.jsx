@@ -4,24 +4,49 @@ import { useState, useEffect } from "react"
 import { ModalGroupWine } from "../../components/Modal/ModalGroupWine/ModalGroupWine";
 import { Link } from 'react-router-dom';
 import Comision from "../UserRestaurant/comision";
+import CreanVentaWine from "./VentasWine/CreanVentaWine";
+
+
+
+
 export const UserWine = () => {
 
     const [estadoModal1, cambiarEstadoModal1] = useState(false);
-
+    const [edicionPorGrupo, setEdicionPorGrupo] = useState({});
 
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true)
     const [reloadData, setReloadData] = useState(false);
 
+    const setEditandoComensales = (grupoId, valor) => {
+        setEdicionPorGrupo((prevEdicion) => {
+            return { ...prevEdicion, [grupoId]: valor };
+        });
+    };
 
 
 
-    const idEmpresa=(grupo)=>{
 
-        const empresa=grupo.empresa.id;
+    const idEmpresa = (grupo) => {
+
+        const empresa = grupo.empresa.id;
         return empresa;
-        
-          }
+
+    }
+
+    const calcularComisionTotal = (grupo) => {
+        if (!grupo || !grupo.empresa || !grupo.empresa.empleadoEmpresa) {
+            console.error("Datos de grupo incompletos o incorrectos");
+            return 0;
+        }
+
+        const comisionEmpresa = grupo.empresa.comision;
+        const comisionEmpleados = grupo.empresa.empleadoEmpresa.reduce((acc, empleado) => acc + empleado.comision, 0);
+
+        return comisionEmpresa + comisionEmpleados;
+    };
+
+
     useEffect(() => {
         setLoading(true);
         fetch("http://localhost:8080/grupos/listW")
@@ -38,6 +63,47 @@ export const UserWine = () => {
 
 
 
+
+    const actualizarEstadoGrupo = async (grupoId, nuevoEstado) => {
+        try {
+            const response = await fetch(`http://localhost:8080/grupos/${grupoId}/a`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    estadoGrupoWine: nuevoEstado,
+                }),
+            });
+            if (response.ok) {
+                console.log(`Grupo ${grupoId} actualizado a ${nuevoEstado} con éxito.`);
+                // Actualizar localmente el estado del grupo en data
+                setData(prevData => {
+                    return prevData.map(grupo => {
+                        if (grupo.id === grupoId) {
+                            return { ...grupo, estadoGrupoWine: nuevoEstado };
+                        }
+                        return grupo;
+                    });
+                });
+            } else {
+                console.error(`Error al actualizar el estado del grupo ${grupoId}.`);
+            }
+        } catch (error) {
+            console.error('Error en la llamada a la API:', error);
+        }
+    };
+
+ 
+
+   
+
+    const handleVentaCreada = (nuevaVenta) => {
+        // Lógica para manejar la nueva venta
+        console.log('Nueva venta creada:', nuevaVenta);
+        // Actualizar el estado para forzar el recargado de datos
+        setReloadData((prev) => !prev);
+      };
 
     return (
         <>
@@ -61,6 +127,7 @@ export const UserWine = () => {
                         <th>Regalos</th>
                         <th>Descuento</th>
                         <th>Total</th>
+                        <th>Estado</th>
                     </tr>
 
                     {data?.map((grupo) => (
@@ -68,17 +135,20 @@ export const UserWine = () => {
                             <td>{grupo.id}</td>
                             <td>{grupo.empresa.nombreEmpresa}</td>
                             <td>{/*fecha */}</td>
-                            <td>
+                            <td>{calcularComisionTotal(grupo)}
+
                                 <Comision empresa={idEmpresa(grupo)}></Comision>
                             </td>
-                            <td>
-                                Ver
-                            </td>
-                            <td>
-                            1000
 
-
+                            <td>
+                            <Link to={`/ventasWine/${grupo.id}`}>
+                                <button>Ver</button>
+                            </Link>
+                            <CreanVentaWine grupoId={grupo.id} onVentaCreada={handleVentaCreada} reloadData={reloadData} />
                             </td>
+                            
+                            <td>{grupo.montoVentasGrupo}</td>
+                            
                             <td>
                                 <Link to={`/regalos/${grupo.id}`}>
                                     <button>Ver</button>
@@ -86,6 +156,23 @@ export const UserWine = () => {
 
 
                             </td>
+
+
+
+                            <td>{grupo.descuentoComision}</td>
+                            <td>{grupo.total}</td>
+
+                            <td>
+                                <select
+                                    value={grupo.estadoGrupoWine}
+                                    onChange={(e) => actualizarEstadoGrupo(grupo.id, e.target.value)}
+                                >
+                                    <option value="ABIERTOWINE">Abierto</option>
+                                    <option value="CERRADOWINE">Cerrado</option>
+                                    <option value="SUSPENDIDOWINE">Suspendido</option>
+                                </select>
+                            </td>
+
 
                         </tr>
 

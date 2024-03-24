@@ -14,6 +14,7 @@ import ListaVentas from './pages/UserRestaurant/Venta'
 import Productos from './pages/Products/Producto'
 import Combo from './pages/Combos/Combo'
 import Regalo from './pages/UserWine/Regalo/Regalo'
+import VentasWine from './pages/UserWine/VentasWine/VentasWine'
 
 
 
@@ -31,6 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path='/UserWine' element={<UserWine/>}></Route>
         <Route path='/SaleWine' element={<SaleWine/>}></Route>
         <Route path="/ventas/:id" element={<ListaVentas />} />
+        <Route path="/ventasWine/:id" element={<VentasWine />} />
         <Route path='/productos' element={<Productos/>}/>
         <Route path='/combos' element={<Combo/>}/>
         <Route path='/ConfirmationSaleWine' element={<ConfirmationSaleWine/>}></Route>
